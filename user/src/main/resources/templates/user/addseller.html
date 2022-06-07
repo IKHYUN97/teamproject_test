@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/default}">
+<head>
+	<a th:href="@{/userInsert}">회원가입</a>
+	<a th:href="@{/userList}">회원목록조회</a>
+</head>	<br/>
+<script type="text/javascript" th:src="@{js/jquery-3.6.0.min.js}"></script>
+	
+	<form id="addUserForm" th:action="@{userInsert}" method="post">
+			<table border="0">
+				<tbody>
+					<tr>
+						<td>판매회원아이디</td>
+						<td>
+							<input type="text" id="userId" name="userId" placeholder="회원의 아이디를 입력해주세요."> 
+						</td>
+						<td>
+							<button id="idCheck" type="button">아이디중복체크</button>
+						</td>
+					</tr>
+					<tr>
+						
+						<td id="idche"  colspan="3"></td>
+					</tr>
+					<tr>
+						<td>회원비밀번호</td>
+						<td colspan="2">
+							<input type="text" id="userpw" name="userPw" style="width: 98%;"   placeholder="회원의 비밀번호를 입력해주세요."> 
+						</td>
+					</tr>
+					<tr>
+						
+						<td id="userP"  colspan="3"></td>
+					</tr>
+					<tr>
+						<td>회원비밀번호확인</td>
+						<td colspan="2">
+							<input type="text" id="PwCheck" name="userPwCheck"  style="width: 98%;"  placeholder="비밀번호 확인."> 
+						</td>
+					</tr>
+					<tr>
+						
+						<td id="pwche"  colspan="3"></td>
+					</tr>
+					<tr>
+						<td>회원이름</td>
+						<td colspan="2">
+							<input type="text" name="userName" style="width: 98%;"   placeholder="회원의 이름을 입력해주세요."> 
+						</td>
+					</tr>
+					<tr>
+						<td>휴대폰번호</td>
+						<td colspan="2">
+							<input type="text" id="phoneNum" name="userContact" style="width: 98%;"   placeholder="회원의 휴대폰번호를 입력해주세요."> 
+						</td>
+					</tr>
+					<tr>
+						<td>회원이메일</td>
+						<td colspan="2">
+							<input type="text" id="isemail" name="userEmail" style="width: 98%;"   placeholder="회원의 이메일을 입력해주세요."> 
+						</td>
+					</tr>
+					<tr>
+						<td>회원관심지역</td>
+						<td colspan="2">
+							<input type="text" name="userArea" style="width: 98%;"   placeholder="회원의 관심지역을 입력해주세요."> 
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3" >
+							<button type="submit" style="width: 100%;" >회원가입</button>
+						</td>
+						<td colspan="3">
+							<button th:href="@{/addseller}" type="submit" style="width: 100%;">회원가입</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<script type="text/javascript">
+			
+		$('#userpw').keypress(function(){////패스워스 유효성검사..!!!
+				var $userpw =$('#userpw')
+				var regExppw = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{4,7}$/;
+			    
+				if(!regExppw.test($userpw.val())){
+					$('#userP').html("<td class='bi bi-exclamation-circle'>영문대(소)문자+숫자 4-7자리로 해주세요!!</td> ");
+					$('#userP').css('color', 'red');
+					return;
+				}else{
+					$('#userP').remove();
+					$('#userpw').focusout(function(){
+						$(this).attr("disabled", "true");
+					});
+				}
+			});
+			$('#PwCheck').keyup(function(){//////패스워드 일치여부//////
+				var $userPw = $('input[name="userPw"]').val();
+				var $userPwCheck = $('input[name="userPwCheck"]').val();
+				console.log($userPw,$userPwCheck);
+				if($userPw != $userPwCheck){
+					$('#pwche').html("<td class='bi bi-exclamation-circle'>XXXXXXXXXXXXXXXXXX</td> ")
+					$('#pwche').css('color', 'red');
+					$('input[name="userPw"]');
+				}else{
+					$('#pwche').html("<td class='bi bi-exclamation-circle'>OOOOOOOOOOOOOOOOOO</td> ")
+					$('#pwche').css('color', 'green');
+					
+				}
+			});
+			
+			$('#phoneNum').keypress(function(){////전화번호 테스트완료/////
+				var regNum = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+				var $regnum = regNum.test($('input[name="userContact"]').val());
+				
+				if(!$regnum){
+					console.log('다시눌러!!');
+					return;
+				}else{
+					console.log('그만!!!');
+				}
+				
+			$('#isemail').keypress(function(){////이메일테스트!!!
+				var regEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+				var $reEmail = regEmail.test($('input[name="userEmail"]').val());
+				
+				if(!$reEmail){
+					console.log('다시눌러!!');
+					return;
+				}else{
+					console.log('그만!!!');
+					
+				}
+		
+			});
+			});
+			
+			
+			</script>
+	
+	</html>

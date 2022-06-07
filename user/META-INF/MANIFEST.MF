@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: user
+Bundle-SymbolicName: user
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: user
+Export-Package: com.example.user,
+ com.example.user.Controller,
+ com.example.user.Mapper,
+ com.example.user.dto,
+ com.example.user.service
